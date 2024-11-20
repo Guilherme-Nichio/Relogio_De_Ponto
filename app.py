@@ -12,6 +12,15 @@ def iniciaBd():
             cpf VARCHAR(11) NOT NULL,
             funcionario_id INTEGER NOT NULL
     );  
+    
+    CREATE TABLE IF NOT EXISTS adminstradores(
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL
+        cpf INTEGER NOT NULL
+        email VARCHAR(115) NOT NULL
+        senha VARCHAR(115) NOT NULL
+        );
+    
     """)
     
     print('tabela criada com sucesso')
@@ -27,14 +36,33 @@ def insereFuncionario(nome, cpf , id):
     conn.commit()
     print("Funcionario Inserido")
     
+def leituraBanco():
+    cursor.execute("""
+    SELECT * FROM funcionarios;
+    """)
+    
+    for linha in cursor.fetchall():
+        print(linha)
+
+
+def alterarBanco(novo_nome, id):
+    cursor.execute("""
+    UPDATE funcionarios
+    SET nome = ? 
+    WHERE funcionario_id = ? 
+    """ , (novo_nome, id))
+    conn.commit()
+    print('banco de dados atualizado')
 
 
 iniciaBd()
-nome = input('Digite seu nome')
-cpf = int(input('Digite seu cpf'))
-id_funcionario = int(input('Digite seu id'))
 
-insereFuncionario(nome,cpf,id_funcionario)
+tipoUser = int(input("Que tipo de usuario você deseja ser? \n1.Administrador 2.Funcionario  \n Escolha: "))
+
+if tipoUser == 1:
+    print("Voce esta como adm")
+else:
+    print("voce esta como funcionario")
 
 
 
