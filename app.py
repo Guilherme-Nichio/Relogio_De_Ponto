@@ -3,7 +3,8 @@ import sqlite3
 import datetime 
 from datetime import datetime
 import pandas as pd
-import numpy as np
+import tkinter as tk
+
 
 conn =sqlite3.connect('moratech.db')
 cursor = conn.cursor()
@@ -158,6 +159,7 @@ def registrarPonto(funcionario):
         conn.commit()
     else: 
         print('funcionario nao existe')
+        
 def exportarExcel(banco_dados, nomeArquivo):
     conn =sqlite3.connect(banco_dados)
     cursor = conn.cursor()
@@ -177,27 +179,28 @@ def exportarExcel(banco_dados, nomeArquivo):
     conn.close()
     print('dados exportados')
     
-exportarExcel("moratech.db","tabelasDePonto.xlsx")    
+root = tk.Tk()
+root.title('Cadastrar ponto')
+root.state('zoomed')
+ 
+def atualizaHora():
+    horarioAtual = datetime.today().strftime("%d/%m/%y  %H:%M:%S")
+    label.config(text=horarioAtual)
+    root.after(1000, atualizaHora)
     
-iniciaBd()
-registrarPonto(1131)
+def tecladoVirtual():
+    matrix = [1 , 2 , 3,
+              4 , 5 , 6,
+              7 , 8 , 9,
+              0         ]
+    for num in matrix:
+            button = tk.Button(root , text= num, font=("Arial", 15) , width= 10 , height= 5)
+            button.pack(pady=10 , side= 'left' , anchor='center')
+    num += 1 
+    
 
-
-
-
-
-
-#print("| Bem vindo ao sistema de gerenciamento de ponto | \n")
-#print("entrar no painel de adminstrador digite o user: ")
-#user = input()
-#verificarLoginAdm(user)
-
-#tipoUser = int(input("Que tipo de usuario você deseja ser? \n1.Administrador 2.Funcionario  \n Escolha: "))
-
-#if tipoUser == 1:
-#    print("Voce esta como adm")
-#else:
-#    print("voce esta como funcionario")
-
-
-
+label = tk.Label(root, text='', font=("Arial", 50) )
+label.pack(pady=10)
+tecladoVirtual()
+atualizaHora()
+root.mainloop()
