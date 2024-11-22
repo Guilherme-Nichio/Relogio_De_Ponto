@@ -192,15 +192,31 @@ def tecladoVirtual():
     matrix = [1 , 2 , 3,
               4 , 5 , 6,
               7 , 8 , 9,
-              0         ]
+              0 ]
+    row = 0
+    col = 0
     for num in matrix:
-            button = tk.Button(root , text= num, font=("Arial", 15) , width= 10 , height= 5)
-            button.pack(pady=10 , side= 'left' , anchor='center')
+            button = tk.Button(root , text= num, font=("Arial", 30) , width= 10 , height= 5 ,command=lambda n=num: botao_clicado(n))
+            button.grid(row = row , column = col)
+            col +=1
+            if col > 2:
+                col = 0 
+                row += 1
     num += 1 
     
+    button_entra = tk.Button(root , text= 'entra', font=("Arial", 30) , width= 10 , height= 5 )
+    button_entra.grid(row = row , column = col)
+    col+=1
+    button_deleta = tk.Button(root , text= 'deleta', font=("Arial", 30) , width= 10 , height= 5 )
+    button_deleta.grid(row = row , column = col)
+def botao_clicado(numero):
+    print(numero)
 
 label = tk.Label(root, text='', font=("Arial", 50) )
-label.pack(pady=10)
+label.grid(column = 5, padx= 50, pady= 10)
+
+entrada = tk.Entry(root, font=("Arial ",30) , width= 50)
+entrada.grid(column=5, row=1 , padx=50, pady=10)
 tecladoVirtual()
 atualizaHora()
 root.mainloop()
