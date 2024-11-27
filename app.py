@@ -209,14 +209,32 @@ def tecladoVirtual():
     col+=1
     button_deleta = tk.Button(root , text= 'deleta', font=("Arial", 30) , width= 10 , height= 5 )
     button_deleta.grid(row = row , column = col)
+    
+identificacao = []
 def botao_clicado(numero):
     print(numero)
+    identificacao.append(numero)
+    texto.config(text="".join(map(str, identificacao)))        
+    print(identificacao)
+    
 
+def tipoPonto():
+    butn1 = tk.Button(root, text="Entrada", font=("Arial" , 20))
+    butn1.grid(row = 2 , column= 5)
+    butn1 = tk.Button(root, text= "Entrada Almoço", font=("Arial" , 20))
+    butn1.grid(row = 2 , column= 6)
+    butn1 = tk.Button(root, text="Saida Almoço", font=("Arial" , 20))
+    butn1.grid(row = 2 , column= 7)
+    butn1 = tk.Button(root, text="Saida", font=("Arial" , 20))
+    butn1.grid(row = 2 , column= 8)
+    
 label = tk.Label(root, text='', font=("Arial", 50) )
 label.grid(column = 5, padx= 50, pady= 10)
 
-entrada = tk.Entry(root, font=("Arial ",30) , width= 50)
-entrada.grid(column=5, row=1 , padx=50, pady=10)
+texto = tk.Label(root, text='', font=("Arial", 50) )
+texto.grid(column = 5, padx= 50, columnspan=10)
+
+tipoPonto()
 tecladoVirtual()
 atualizaHora()
 root.mainloop()
